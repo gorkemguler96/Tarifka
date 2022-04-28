@@ -1,5 +1,41 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
 
 export default StyleSheet.create({
-
+    container:{
+        flex:1,
+        backgroundColor:'#ffa500',
+        paddingLeft:10,
+        paddingBottom:10,
+        paddingRight:10,
+        paddingTop:5,
+    },
+    inner_container:{
+        paddingLeft:10,
+        paddingBottom:5,
+        paddingRight:10,
+        paddingTop:5,
+        alignItems:"center",
+    },
+    image:{
+        width:Dimensions.get('window').width/1.1,
+        height:Dimensions.get('window').height/3.6,
+        borderRadius:30,
+    },
+    mealsView:{
+        flex:1,
+        marginTop:-55,
+        backgroundColor:'rgba(9,9,9,0.6)',
+        width:Dimensions.get('window').width/1.1,
+        height:55,
+        justifyContent:"center",
+        alignItems:"center",
+        borderBottomRightRadius:30,
+        borderBottomLeftRadius:30,
+        padding:5
+    },
+    mealsText:{
+        color:"white",
+        fontWeight:"bold",
+        fontSize:19,
+    }
 })

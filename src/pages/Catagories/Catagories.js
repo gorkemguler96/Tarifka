@@ -2,10 +2,14 @@ import React, {useEffect, useState} from 'react';
 import {View,Text,FlatList, Image, TouchableWithoutFeedback} from "react-native";
 import styles from './Catogories.style'
 import axios from "axios";
+import Error from "../../components/Error";
+import Loading from "../../components/Loading";
 
 function Catagories({navigation}) {
 
     const [categoriesData,setCategoriesData] = useState([]);
+    const [loading,setLoading] = useState(true);
+    const [loading2,setLoading2] = useState(false);
 
 
     useEffect(()=>{
@@ -15,11 +19,17 @@ function Catagories({navigation}) {
     const fetchData = async () => {
         const {data} =await axios.get("https://www.themealdb.com/api/json/v1/1/categories.php")
         setCategoriesData(data.categories)
+        setTimeout(()=>{
+            setLoading(false)
+        },1000)
+
     }
 
-    const changeMeals = (item) => {
-        // navigation.navigate("MealsPage",{id})
-        console.log(item)
+    const changeMeals = async (item) => {
+
+        const {data} =await axios.get(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${item.strCategory}`)
+        navigation.navigate("MealsPage", data)
+
     }
 
     const categoriesRender = ({item}) => {
@@ -35,6 +45,13 @@ function Catagories({navigation}) {
             )
     }
 
+    if(loading){
+        return <Loading/>
+    }
+    if(loading2){
+        return <Loading/>
+    }
+
 
     return (
         <FlatList data={categoriesData} keyExtractor={(item)=> item.idCategory} renderItem={categoriesRender}/>
@@ -42,8 +59,3 @@ function Catagories({navigation}) {
 }
 
 export default Catagories;
-
-// idCategory: "1"
-// strCategory: "Beef"
-// strCategoryDescription: "Beef is the culinary name for meat from cattle, particularly skeletal muscle. Humans have been eating beef since prehistoric times.[1] Beef is a source of high-quality protein and essential nutrients.[2]"
-// strCategoryThumb: "https://www.themealdb.com/images/category/beef.png"
