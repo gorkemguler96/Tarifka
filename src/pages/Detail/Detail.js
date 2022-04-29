@@ -39,3 +39,5 @@ function Detail({route}) {
 }
 
 export default Detail;
+
+//redux videoları izlendi
